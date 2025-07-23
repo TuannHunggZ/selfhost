@@ -88,7 +88,9 @@ sudo systemctl status pdns
 ```
 ![Kiểm tra PowerDNS](./images/PowerDNS/check-powerdns2.png "Kiểm tra PowerDNS.")
 
-**4. Thêm bản ghi DNS mẫu cho domain nội bộ**
+**4. Thêm bản ghi DNS mẫu cho domain nội bộ**\
+Tên miền giả định `zinzax.com`\
+IP của mail server `10.0.12.244`
 ```bash
 INSERT INTO domains (name, type) VALUES ('zinzax.com', 'NATIVE');
 INSERT INTO records (domain_id, name, type, content, ttl, prio, disabled) VALUES (1, 'zinzax.com', 'SOA', 'ns1.zinzax.com. admin.zinzax.com. 1 3600 1800 604800 3600', 3600, NULL, 0);
@@ -97,3 +99,4 @@ INSERT INTO records (domain_id, name, type, content, ttl, prio, disabled) VALUES
 INSERT INTO records (domain_id, name, type, content, ttl, prio, disabled, auth) VALUES (1, 'mail.zinzax.com', 'A', '10.0.12.244', 3600, NULL, 0, 1);
 INSERT INTO records (domain_id, name, type, content, ttl, prio, disabled, auth) VALUES (1, 'zinzax.com', 'MX', 'mail.zinzax.com', 3600, 10, 0, 1);
 ```
+![Kiểm tra database](./images/PowerDNS/check-database2.png "Kiểm tra database.")
