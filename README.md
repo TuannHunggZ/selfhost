@@ -86,7 +86,7 @@ khởi động PowerDNS và kiểm tra trạng thái PowerDNS:
 sudo systemctl start pdns
 sudo systemctl status pdns
 ```
-![Kiểm tra PowerDNS](./images/PowerDNS/check-powerdns1.png "Kiểm tra PowerDNS.")
+![Kiểm tra PowerDNS](./images/PowerDNS/check-powerdns2.png "Kiểm tra PowerDNS.")
 
 **4. Thêm bản ghi DNS mẫu cho domain nội bộ**
 ```bash
