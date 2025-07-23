@@ -1,80 +1,80 @@
 ---
-# - name: Update apt cache
-#   apt:
-#     update_cache: yes
+- name: Update apt cache
+  apt:
+    update_cache: yes
 
-# - name: Install MariaDB server
-#   apt:
-#     name: mariadb-server
-#     state: present
+- name: Install MariaDB server
+  apt:
+    name: mariadb-server
+    state: present
 
-# - name: Create PowerDNS database
-#   community.mysql.mysql_db:
-#     name: "{{ pdns_db_name }}"
-#     state: present
-#     login_unix_socket: /run/mysqld/mysqld.sock
+- name: Create PowerDNS database
+  community.mysql.mysql_db:
+    name: "{{ pdns_db_name }}"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
 
-# - name: Create pdnsadmin user and grant privileges
-#   community.mysql.mysql_user:
-#     name: "{{ pdns_db_user }}"
-#     password: "{{ pdns_db_password }}"
-#     host: "localhost"
-#     priv: "{{ pdns_db_name }}.*:ALL"
-#     state: present
-#     login_unix_socket: /run/mysqld/mysqld.sock
+- name: Create pdnsadmin user and grant privileges
+  community.mysql.mysql_user:
+    name: "{{ pdns_db_user }}"
+    password: "{{ pdns_db_password }}"
+    host: "localhost"
+    priv: "{{ pdns_db_name }}.*:ALL"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
 
-# - name: Disable and stop systemd-resolved
-#   systemd:
-#     name: systemd-resolved
-#     enabled: no
-#     state: stopped
+- name: Disable and stop systemd-resolved
+  systemd:
+    name: systemd-resolved
+    enabled: no
+    state: stopped
 
-# - name: Remove existing resolv.conf
-#   file:
-#     path: /etc/resolv.conf
-#     state: absent
-#     force: yes
+- name: Remove existing resolv.conf
+  file:
+    path: /etc/resolv.conf
+    state: absent
+    force: yes
 
-# - name: Add 8.8.8.8 as nameserver
-#   copy:
-#     dest: /etc/resolv.conf
-#     content: "nameserver 8.8.8.8\n"
+- name: Add 8.8.8.8 as nameserver
+  copy:
+    dest: /etc/resolv.conf
+    content: "nameserver 8.8.8.8\n"
 
-# - name: Install PowerDNS and MySQL backend
-#   apt:
-#     name:
-#       - pdns-server
-#       - pdns-backend-mysql
-#     state: present
+- name: Install PowerDNS and MySQL backend
+  apt:
+    name:
+      - pdns-server
+      - pdns-backend-mysql
+    state: present
 
-# - name: Import PowerDNS schema to database
-#   community.mysql.mysql_db:
-#     login_user: "{{ pdns_db_user }}"
-#     login_password: "{{ pdns_db_password }}"
-#     name: "{{ pdns_db_name }}"
-#     target: /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
-#     state: import
+- name: Import PowerDNS schema to database
+  community.mysql.mysql_db:
+    login_user: "{{ pdns_db_user }}"
+    login_password: "{{ pdns_db_password }}"
+    name: "{{ pdns_db_name }}"
+    target: /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
+    state: import
 
-# - name: Create PowerDNS gmysql config file
-#   ansible.builtin.copy:
-#     dest: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
-#     owner: pdns
-#     group: pdns
-#     mode: '0640'
-#     content: |
-#       # MySQL Configuration
-#       #
-#       # Launch gmysql backend
-#       launch+=gmysql
+- name: Create PowerDNS gmysql config file
+  ansible.builtin.copy:
+    dest: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
+    owner: pdns
+    group: pdns
+    mode: '0640'
+    content: |
+      # MySQL Configuration
+      #
+      # Launch gmysql backend
+      launch+=gmysql
 
-#       # gmysql parameters
-#       gmysql-host=127.0.0.1
-#       gmysql-port=3306
-#       gmysql-dbname={{ pdns_db_name }}
-#       gmysql-user={{ pdns_db_user }}
-#       gmysql-password={{ pdns_db_password }}
-#       gmysql-dnssec=yes
-#       # gmysql-socket=
+      # gmysql parameters
+      gmysql-host=127.0.0.1
+      gmysql-port=3306
+      gmysql-dbname={{ pdns_db_name }}
+      gmysql-user={{ pdns_db_user }}
+      gmysql-password={{ pdns_db_password }}
+      gmysql-dnssec=yes
+      # gmysql-socket=
 
 - name: Add records to the PowerDNS database
   community.mysql.mysql_query:
