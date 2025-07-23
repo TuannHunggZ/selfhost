@@ -79,11 +79,14 @@ Dừng PowerDNS và kiểm tra PowerDNS bằng lệnh sau:
 sudo systemctl stop pdns
 sudo pdns_server --daemon=no --guardian=no --loglevel=9
 ```
+![Kiểm tra PowerDNS](./images/PowerDNS/check-powerdns.png "Kiểm tra PowerDNS.")
+
 khởi động PowerDNS và kiểm tra trạng thái PowerDNS:
 ```bash
 sudo systemctl start pdns
 sudo systemctl status pdns
 ```
+![Kiểm tra PowerDNS](./images/PowerDNS/check-powerdns1.png "Kiểm tra PowerDNS.")
 
 **4. Thêm bản ghi DNS mẫu cho domain nội bộ**
 ```bash
