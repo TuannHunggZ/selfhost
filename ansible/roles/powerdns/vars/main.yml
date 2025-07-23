@@ -1,0 +1,5 @@
+pdns_db_name: pdns
+pdns_db_user: pdnsadmin
+pdns_db_password: password
+pdns_domain: zinzax.com
+ip_mailserver: 10.0.12.244
